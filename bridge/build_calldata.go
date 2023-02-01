@@ -1,4 +1,4 @@
-package backend
+package bridge
 
 import (
 	"encoding/hex"
@@ -77,36 +77,6 @@ func uniswapDataExtractor(data []byte) (*UniswapQuote, [][]int64, error) {
 	}
 	return &result, feePaths, nil
 }
-
-//      data := “acquire this data via https://docs.uniswap.org/sdk/v3/guides/quoting”
-//      quote, feePaths, err := uniswapDataExtractor(data)
-//      if err != nil {
-//          return nil, err
-//      }
-//       paths := []ethcommon.Address{}
-//       traversedTk := make(map[string]struct{})
-
-//       for _, route := range quote.Data.Route[0] {
-//                tokenAddress := ethcommon.Address{}
-//                err = tokenAddress.UnmarshalText([]byte(route.TokenIn.Address))
-//                if err != nil {
-//                    return nil, err
-//                }
-//                if _, ok := traversedTk[route.TokenIn.Address]; !ok {
-//                    paths = append(paths, tokenAddress)
-//                }
-//                traversedTk[route.TokenIn.Address] = struct{}{}
-
-//                tokenAddress2 := ethcommon.Address{}
-//                err = tokenAddress2.UnmarshalText([]byte(route.TokenOut.Address))
-//                if err != nil {
-//                    return nil, err
-//                }
-//                if _, ok := traversedTk[route.TokenOut.Address]; !ok {
-//                    paths = append(paths, tokenAddress2)
-//                }
-//                traversedTk[route.TokenOut.Address] = struct{}{}
-//            }
 
 func CheckIsWrappedNativeToken(contractAddress string, network int) bool {
 	list, exist := WrappedNativeMap[network]

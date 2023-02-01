@@ -1,4 +1,4 @@
-package backend
+package bridge
 
 import (
 	"bytes"
@@ -194,7 +194,7 @@ func getETHDepositProof(
 	return blockNumber, blockHash, uint(txIndex), encNodeList, contractID, paymentaddress, isRedeposit, otaStr, shieldAmount, logResult, isTxPass, nil
 }
 
-func getProof(txhash string, networkID int) (*wcommon.EVMProofRecordData, *incclient.EVMDepositProof, error) {
+func getProof(txhash string) (*wcommon.EVMProofRecordData, *incclient.EVMDepositProof, error) {
 	endpoint := "your eth endpoint"
 
 	evmClient, err := ethclient.Dial(endpoint)
