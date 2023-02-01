@@ -5,8 +5,9 @@ import (
 	wcommon "github.com/incognitochain/incognito-web-based-backend/common"
 )
 
-func submitProofTx(tokenID string, pUTokenID string, key string, txhash string) (string, error) {
-	_, proof, err := getProof(txhash)
+func SubmitProofTx(tokenID string, pUTokenID string, key string, txhash string) (string, error) {
+	ethRPCEndpoint := ""
+	_, proof, err := GetProof(txhash, ethRPCEndpoint)
 	if err != nil {
 		return "", err
 	}

@@ -105,10 +105,9 @@ func buildPathUniswap(paths []common.Address, fees []int64) []byte {
 	return temp
 }
 
-func BuildCallDataUniswap(data []byte, tokenOutAddress string, srcQty *big.Int, expectedOut *big.Int) (string, error) {
-
-	data = []byte("acquire this data via https://docs.uniswap.org/sdk/v3/guides/quoting")
-	quote, feePaths, err := uniswapDataExtractor(data)
+func BuildCallDataUniswap(quoteData []byte, tokenOutAddress string, srcQty *big.Int, expectedOut *big.Int, proxyContractAddress, incognitoVaultContractAddress string) (string, error) {
+	// quoteData can be acquire via https://docs.uniswap.org/sdk/v3/guides/quoting" and https://github.com/MrCorncob/uniswap-smart-order-router
+	quote, feePaths, err := uniswapDataExtractor(quoteData)
 	if err != nil {
 		return "", err
 	}
@@ -137,8 +136,8 @@ func BuildCallDataUniswap(data []byte, tokenOutAddress string, srcQty *big.Int, 
 		traversedTk[route.TokenOut.Address] = struct{}{}
 	}
 
-	uniswapProxy := common.HexToAddress("uniswapProxyContractAddress")
-	recipient := common.HexToAddress("incognitoVaultContractAddress")
+	uniswapProxy := common.HexToAddress(proxyContractAddress)
+	recipient := common.HexToAddress(incognitoVaultContractAddress)
 	isNativeOut := false
 	if wcommon.CheckIsWrappedNativeToken(tokenOutAddress, 1) {
 		isNativeOut = true
